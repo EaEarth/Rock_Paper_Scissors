@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="game">
+        <div class="info">
+            <span>Round : </span>
+            <span class="round">0</span>
+            <span>  Win : </span>
+            <span class="win">0</span>
+            <span>  Lose : </span>
+            <span class="lose">0</span>
+        </div>
+        <div class="selectResult">
+            <span>Player : </span>
+            <span class="playerSelect">&nbsp&nbsp&nbsp</span>
+            <span>  Opponent : </span>
+            <span class="comSelect"></span>
+        </div>
+        <p class="result">&nbsp</p>
+        <button id="rock">Rock!</button>
+        <button id="paper">Paper!</button>
+        <button id="scissors">Scissors!</button>
+    </div>
+
+    
+    <script >
+        let lose =0,win =0, round=0, roundResult= " "
+        function computerPlay(){
+            let rand = Math.floor(Math.random()*3)
+            if(rand == 0){
+                return "rock"
+            }else if(rand == 1){
+                return "paper"
+            }
+            return "scissors"
+        }
+
+        function finish(){
+            if(win > lose) alert("You Win!");
+            else if(lose > win) alert("You Lose!");
+            else alert("draw");
+            lose = 0; win=0; round=0; roundResult=" ";
+        }
+
+        function result(player,com){
+            if(player == com) return "draw"
+            if(player == "rock"){
+                if(com == "paper") return "lose"
+                return "win"
+            }
+            if(player == "paper"){
+                if(com == "rock") return "win"
+                return "lose"
+            }
+            if(com =="rock") return "lose"
+            return "win"
+        }
+
+        function changeInfo(){
+            document.getElementsByClassName("round")[0].innerHTML = round;
+            document.getElementsByClassName("win")[0].innerHTML = win;
+            document.getElementsByClassName("lose")[0].innerHTML = lose;
+            document.getElementsByClassName("result")[0].innerHTML = roundResult;
+        } 
+
+        function playRound(e){
+            const com = computerPlay();
+            const player = e.target.id;
+            document.getElementsByClassName("playerSelect")[0].innerHTML = player;
+            document.getElementsByClassName("comSelect")[0].innerHTML = com;
+            roundResult = result(player,com);
+            ++round;
+            if(roundResult == "win") ++win;
+            else if(roundResult == "lose") ++lose;
+            changeInfo();
+            if(round == 5){ 
+                finish();
+                changeInfo();
+                document.getElementsByClassName("playerSelect")[0].innerHTML = " ";
+                document.getElementsByClassName("comSelect")[0].innerHTML = " ";
+            }
+        }
+        
+        const btn = Array.from(document.querySelectorAll("button"));
+        btn.forEach(key => key.addEventListener('click', playRound));
+    </script>
+</body>
+</html>

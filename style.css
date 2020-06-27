@@ -1,0 +1,19 @@
+.game{
+    position: absolute;
+    height: 300px;
+    width: 900px;
+    left: 50%;
+    top: 50%;
+    margin-top: -150px;
+    margin-left: -450px;
+    text-align: center;
+    font-size: 50px;
+}
+
+.playerSelect, .comSelect, .round, .win, .lose{
+    color : green;
+}
+
+button{
+    font-size: 20px;
+}
